@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"html/template"
 	"io"
-	"net/http"
+	"log"
+	"os"
 
 	"github.com/labstack/echo/v4"
 )
@@ -23,26 +25,30 @@ func NewTemplates() *Templates {
 }
 
 type Data struct {
-	Message string
+	Text []string
 }
 
 func newData() Data {
 	return Data{
-		Message: "",
+		Text: make([]string, 0),
 	}
 }
 
-func getUser(c echo.Context) error {
-	// User ID from path `users/:id`
-	id := c.Param("id")
-	return c.String(http.StatusOK, id)
-}
+func (d *Data) getContentText(filepath string) {
+    file, err := os.Open(filepath)
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer file.Close()
 
-func show(c echo.Context) error {
-	// Get team and member from the query string
-	team := c.QueryParam("team")
-	member := c.QueryParam("member")
-	return c.String(http.StatusOK, "team:"+team+", member:"+member)
+    scanner := bufio.NewScanner(file)
+    for scanner.Scan() {
+        d.Text = append(d.Text, scanner.Text())
+    }
+
+    if err := scanner.Err(); err != nil {
+        log.Fatal(err)
+    }
 }
 
 func main() {
@@ -52,18 +58,13 @@ func main() {
 	e.Static("/images", "images")
 	e.Static("/css", "css")
 
-	data := newData()
-	data.Message = "hello, world"
+    data := newData()
+    filepath := "text/content.md"
+    data.getContentText(filepath)
 
 	e.GET("/", func(c echo.Context) error {
 		return c.Render(200, "index", data)
 	})
-
-	// e.POST("/users", saveUser)
-	e.GET("/users/:id", getUser)
-	e.GET("/show", show)
-	// e.PUT("/users/:id", updateUser)
-	// e.DELETE("/users/:id", deleteUser)
 
 	e.Logger.Fatal(e.Start(":42069"))
 }

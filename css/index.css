@@ -1,3 +1,80 @@
-body {
-    background-color: white;
+.main-content-container {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+/* css for the breaking point sizes */
+/* small breakpoint */
+@media (min-width: 640px) {
+    .main-content-container {
+        padding: 2rem;
+    }
+}
+
+/* medium breakpoint */
+@media (min-width: 768px) {
+    .main-content-container {
+        padding: 3rem;
+    }
+}
+
+/* large breakpoint */
+@media (min-width: 1024px) {
+    .main-content-container {
+        padding: 4rem;
+    }
+}
+
+/* extra large breakpoint */
+@media (min-width: 1280px) {
+    .main-content-container {
+        padding: 5rem;
+    }
+}
+
+.square-container {
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border-width: 1px;
+    border-color: #374151;
+    width: 100%;
+    max-width: 56rem;
+    color: #ffffff;
+    background-color: #000;
+}
+
+.name-text {
+    margin-bottom: 1rem;
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+}
+
+@media (min-width: 640px) {
+    .name-text {
+        font-size: 3rem;
+        line-height: 1;
+    }
+}
+
+.text {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+
+}
+
+@media (min-width: 640px) {
+    .text {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+    }
+}
+
+.margin-text-bottom {
+    margin-bottom: 2rem;
 }

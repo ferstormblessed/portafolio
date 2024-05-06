@@ -1,0 +1,13 @@
+{{ block "text" . }}
+<h1 class="name-text">Fernando Camacho</h1>
+{{ range .Text }}
+{{ template "content-text" . }}
+{{ end }}
+<p class="text">Hello, my name is ...</p>
+<p class="text">I'm a this and that...</p>
+<p class="text margin-text-bottom">Some more stuff about me...</p>
+{{ end }}
+
+{{ block "content-text" . }}
+<p class="text">{{ . }}</p>
+{{ end }}
