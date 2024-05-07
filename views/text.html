@@ -1,13 +1,11 @@
 {{ block "text" . }}
-<h1 class="name-text">Fernando Camacho</h1>
-{{ range .Text }}
-{{ template "content-text" . }}
-{{ end }}
-<p class="text">Hello, my name is ...</p>
-<p class="text">I'm a this and that...</p>
-<p class="text margin-text-bottom">Some more stuff about me...</p>
+    <h1 class="name-text">{{ .Text.Title }}</h1>
+    {{ range .Text.Middle }}
+        {{ template "middle-text" . }}
+    {{ end }}
+    <p class="text margin-text-bottom">{{ .Text.Bottom }}</p>
 {{ end }}
 
-{{ block "content-text" . }}
-<p class="text">{{ . }}</p>
+{{ block "middle-text" . }}
+    <p class="text">{{ . }}</p>
 {{ end }}
